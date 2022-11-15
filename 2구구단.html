@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>구구단</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+    <div id="root">
+        <div>{{first}} X {{second}} 는?</div>
+        <form v-on:submit="onSubmitForm"> 
+            <input type="number" v-model="value" ref="answer">
+            <button type="submit">입력</button>
+        </form>
+        <div id="result">{{result}}</div>
+    </div>
+
+    <!--
+
+     화면에서 바뀌는 부분은 모두 data로 만든다
+     v-model을 쓰면 입력하는 값이랑 데이터랑 연결된다
+     ref는 $refs로 접근
+    
+    -->
+    <script>
+        const app = new Vue({
+            el : '#root',
+            data : {
+                first : Math.ceil(Math.random()*9),
+                second : Math.ceil(Math.random()*9),
+                value : '',
+                result : '',
+            },
+            methods : {
+                onSubmitForm(e){
+                    e.preventDefault(); // 이거 안하면 페이지 새로고침 된다. spa에선 새로고침 되면 안돼!
+
+                    if( this.first * this.second === parseInt(this.value) ){
+                        this.result = "정답입니다!";
+                        this.first = Math.ceil(Math.random()*9);
+                        this.second = Math.ceil(Math.random()*9);
+                        this.value = '';
+                        this.$refs.answer.focus();
+                       
+                    }else{
+                        this.result = "땡!";
+                        this.value = '';
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>

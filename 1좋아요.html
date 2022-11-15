@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>좋아요</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+    <div id="root">
+        <div v-if="liked">좋아요 눌렀음</div>
+        <button type="button" v-else v-on:click="onClickButton">like</button>
+
+        <!--
+        
+        spa 만들때는 주소가 바뀌지 않기 때문에
+        즉, 하나의 페이지로 화면을 바꿔가며 보여주기 때문에
+        어떤 부분이 바뀌는지 파악하는 것과 그것을 데이터로 관리하는게 중요하다
+        
+        화면이랑 데이터를 일치시켜야 한다 
+        데이터를 바꾸면 화면도 알아서 바뀐다는 생각
+        데이터만 관리하는 것 remove button , show text 이런거 안하고 data 값만 바꿔주는 것
+        * 데이터 중심의 사고 * 데이터랑 메소드를 잘 만들자
+
+        -->
+    </div>
+    
+    <script>
+        // app vue의 인스턴스 
+        const app = new Vue({
+            el : '#root',
+            data : {
+                liked : false,
+            },
+            methods : {
+                onClickButton(){
+                    this.liked = true;
+                },
+            }
+
+        });
+    </script>
+</body>
+</html>

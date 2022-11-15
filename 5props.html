@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>끝말잇기</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+    <div id="root">
+       <word-relay start-word="제로초"></word-relay>
+       <word-relay start-word="바보"></word-relay>
+       <word-relay start-word="멍청이"></word-relay>
+    </div>
+    <script>
+        Vue.component('word-relay',{ // 전역 컴포넌트
+            template:`
+            <div>
+                <div>{{word}}</div>
+                <form v-on:submit="onSubmitForm"> 
+                    <input type="text" v-model="value" ref="answer">
+                    <button type="submit">입력</button>
+                </form>
+                <div>{{result}}</div>
+            </div>
+            `, // ``을 쓰면 줄바꿈할 때 편함, 템플릿은 하나의 태그로 감싼다!
+            props : ['startWord'],
+            data() {
+                return {
+                    word : this.startWord,
+                    result :'',
+                    value : '',
+                }
+            },
+            methods : {
+                onSubmitForm(e){
+                    e.preventDefault();
+                    if( this.word[this.word.length - 1 ] === this.value[0] ){
+                        // 마지막글자와 첫글자가 같으면
+                        this.result = "딩동댕";
+                        this.word = this.value;
+                        this.value = '';
+                        this.$refs.answer.focus();
+
+                    }else{
+                        this.result = "땡";
+                        this.value = '';
+                        this.$refs.answer.focus();
+                    }
+
+                }
+            }
+        })
+    </script>
+    <script>
+        /* 
+            게임을 3개 만들려고 하면 같은 소스가 3개 필요함 
+            코드 지저분 중복
+            반복되는 코드는 컴포넌트로 만든다!
+        */
+        const app = new Vue({ // new Vue 뷰인스턴스
+            el : '#root',
+        });
+    </script>
+</body>
+</html>

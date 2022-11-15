@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title></title>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+    <div id="root">
+       <input id="a" type="checkbox" @change="change"
+       :checked="checked" value=""
+       >
+       <label for="a">{{ label }}</label>
+    </div>
+    <script>
+        // app vue의 인스턴스 
+        const app = new Vue({
+            el : '#root',
+            props : {
+                label : {
+                    type : String,
+                    default : '바밤바',
+                },
+                checked : {
+                    type : Boolean,
+                    default : true,
+                }
+            },
+            data : {
+                chk : this.checked,
+            },
+            computed : {
+                // data 가지고 어쩌고 저쩌고 할때
+            },
+            created(){ 
+                // 데이터 초기화 선언 watch 대상 x
+                // this.chk = this.checked;
+            },
+            mounted(){
+                // pops 값을 넘긴 후 실행될 때 값 바뀜. watch가 동작
+            },
+            methods : {
+                change(e){
+                    this.chk = e.target.checked;
+                },
+            },
+            watch : {
+                // data가 바뀌면 어쩌고 저쩌고 할때
+                chk(val){
+                    this.chk = val;
+                }
+            }
+
+        });
+    </script>
+</body>
+</html>
